@@ -33,14 +33,6 @@ public abstract class MailClient {
         server.authenticate(this);
     }
 
-    protected <T>T executeAction(MailClientAction<T> action) throws NotAuthorizedException {
-        return action.execute(user, server);
-    }
-    
-     protected void executeAction(MailClientVoidAction action) throws NotAuthorizedException {
-        action.execute(user, server);
-    }
-
     public boolean isUser(User otherUser) {
         return user.equals(otherUser);
     }
@@ -49,4 +41,14 @@ public abstract class MailClient {
         Header header = new Header(user, to);
         return new MailItem(header, message);
     }
+
+    protected MailServer getServer() {
+        return server;
+    }
+
+    protected User getUser() {
+        return user;
+    }
+    
+    
 }

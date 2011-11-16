@@ -24,84 +24,38 @@ public class MailClientReceiver extends MailClient {
      * Return the next mail item (if any) for this user.
      */
     public MailItem getNextMailItem() throws NotAuthorizedException {
-        return executeAction(new MailClientAction<MailItem>() {
-
-            public MailItem execute(User user, MailServer server) throws NotAuthorizedException {
-                return server.getNextMailItem(user);
-            }
-        });
+        return getServer().getNextMailItem(getUser());
     }
 
     public void deleteMailItem(final MailItem mailItem) throws NotAuthorizedException {
-        executeAction(new MailClientVoidAction() {
-
-            public void execute(User user, MailServer server) throws NotAuthorizedException {
-                server.deleteMailItem(user, mailItem);
-            }
-        });
+        getServer().deleteMailItem(getUser(), mailItem);
     }
 
     public boolean hasMailInInbox(final MailItem mailItem) throws NotAuthorizedException {
-        return executeAction(new MailClientAction<Boolean>() {
-
-            public Boolean execute(User user, MailServer server) throws NotAuthorizedException {
-                return server.hasMailInInbox(user, mailItem);
-            }
-        });
+        return getServer().hasMailInInbox(getUser(), mailItem);
     }
 
     public boolean hasMailTrash(final MailItem mailItem) throws NotAuthorizedException {
-        return executeAction(new MailClientAction<Boolean>() {
-
-            public Boolean execute(User user, MailServer server) throws NotAuthorizedException {
-                return server.hasMailInTrash(user, mailItem);
-            }
-        });
-
+        return getServer().hasMailInTrash(getUser(), mailItem);
     }
 
     public void createFolder(final FolderName folderName) throws NotAuthorizedException {
-        executeAction(new MailClientVoidAction() {
-
-            public void execute(User user, MailServer server) throws NotAuthorizedException {
-                server.createFolder(folderName);
-            }
-        });
+        getServer().createFolder(folderName);
     }
 
     public boolean hasFolder(final FolderName folderName) throws NotAuthorizedException {
-        return executeAction(new MailClientAction<Boolean>() {
-
-            public Boolean execute(User user, MailServer server) throws NotAuthorizedException {
-                return server.hasFolder(folderName);
-            }
-        });
+        return getServer().hasFolder(folderName);
     }
 
     public void deleteFolder(final FolderName folderName) throws NotAuthorizedException {
-        executeAction(new MailClientVoidAction() {
-
-            public void execute(User user, MailServer server) throws NotAuthorizedException {
-                server.deleteFolder(folderName);
-            }
-        });
+        getServer().deleteFolder(folderName);
     }
 
     public void moveMailItem(final FolderName folderName, final MailItem mailItem) throws NotAuthorizedException {
-        executeAction(new MailClientVoidAction() {
-
-            public void execute(User user, MailServer server) throws NotAuthorizedException {
-                server.moveMailItem(folderName, mailItem);
-            }
-        });
+        getServer().moveMailItem(folderName, mailItem);
     }
 
     public boolean hasMailInFolder(final FolderName folderName, final MailItem mailItem) throws NotAuthorizedException {
-        return executeAction(new MailClientAction<Boolean>() {
-
-            public Boolean execute(User user, MailServer server) throws NotAuthorizedException {
-                return server.hasMailInFolder(folderName, mailItem);
-            }
-        });
+        return getServer().hasMailInFolder(folderName, mailItem);
     }
 }

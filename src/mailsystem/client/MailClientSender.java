@@ -28,10 +28,6 @@ public class MailClientSender extends MailClient {
      */
     public void sendMailItem(User to, MailMessage message) throws NotAuthorizedException {        
         final MailItem item = super.createMailItem(to, message);
-        executeAction(new MailClientVoidAction() {
-            public void execute(User user, MailServer server) throws NotAuthorizedException{
-                server.post(user, item);
-            }
-        });
+        getServer().post(getUser(), item);
     }
 }
