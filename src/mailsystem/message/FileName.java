@@ -21,15 +21,12 @@ public class FileName {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
         final FileName other = (FileName) obj;
         final String otherFileName = other.filename;
         if (this.filename == null) {
-            return (other.filename != null);
+            return (otherFileName != null);
         }
-        return this.filename.equals(other.filename);
+        return filename.equals(otherFileName);
     }
 
     @Override

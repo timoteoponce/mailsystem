@@ -5,13 +5,14 @@
 package mailsystem;
 
 import mailsystem.server.MailItemsNumber;
-import mailsystem.server.MailServer;
+import mailsystem.server.ServerFetcher;
 import mailsystem.server.NotAuthorizedException;
 import mailsystem.message.Header;
 import mailsystem.message.MailItem;
 import mailsystem.message.Content;
 import mailsystem.message.MailMessage;
 import mailsystem.client.MailClientSender;
+import mailsystem.server.ServerFacade;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -27,13 +28,13 @@ public class MailServerTest {
 
     @Test
     public void testMailItemsCountAtStartup() {
-        MailServer server = createServer();
+        ServerFacade server = createServer();
         Assert.assertEquals(server.howManyMailItemsInQueue(user), new MailItemsNumber(0));
     }
 
     @Test
     public void testSingleMailSendingCount() throws NotAuthorizedException {
-        MailServer server = createServer();
+        ServerFacade server = createServer();
         MailClientSender client1 = new MailClientSender(server, user);
         client1.sendMailItem(user2, new MailMessage(new Content("Hello")));
         Assert.assertEquals(server.howManyMailItemsInQueue(user2), new MailItemsNumber(1));
@@ -41,7 +42,7 @@ public class MailServerTest {
 
     @Test
     public void testSingleMailSendingDequeueing() throws NotAuthorizedException {
-        MailServer server = createServer();
+        ServerFacade server = createServer();
         MailClientSender client1 = new MailClientSender(server, user);
         client1.sendMailItem(user2, new MailMessage(new Content("Hello")));
         MailItem nextMailItem = server.getNextMailItem(user2);
@@ -52,7 +53,7 @@ public class MailServerTest {
 
     @Test
     public void testMultipleMailSendingCount() throws NotAuthorizedException {
-        MailServer server = createServer();
+        ServerFacade server = createServer();
         MailClientSender client1 = new MailClientSender(server, user);
         client1.sendMailItem(user2, new MailMessage(new Content("Hello1")));
         client1.sendMailItem(user2, new MailMessage(new Content("Hello2")));
@@ -62,7 +63,7 @@ public class MailServerTest {
 
     @Test
     public void testMultipleMailSendingDequeueing() throws NotAuthorizedException {
-        MailServer server = createServer();
+        ServerFacade server = createServer();
         MailClientSender client1 = new MailClientSender(server, user);
         client1.sendMailItem(user2, new MailMessage(new Content("Hello1")));
         client1.sendMailItem(user2, new MailMessage(new Content("Hello2")));
@@ -75,7 +76,7 @@ public class MailServerTest {
 
     @Test
     public void testgetNextMailItemOnEntyMails() {
-        MailServer server = createServer();
+        ServerFacade server = createServer();
         MailItem nextMailItem = server.getNextMailItem(user2);
         Assert.assertEquals(nextMailItem, null);
 
@@ -83,7 +84,7 @@ public class MailServerTest {
 
     @Test
     public void testgetNextMailItemOnValidMail() throws NotAuthorizedException {
-        MailServer server = createServer();
+        ServerFacade server = createServer();
         MailClientSender client1 = new MailClientSender(server, user);
         client1.sendMailItem(user2, new MailMessage(new Content("Hola")));
         MailItem nextMailItem = server.getNextMailItem(user2);
@@ -94,7 +95,7 @@ public class MailServerTest {
 
     @Test
     public void testPostValidMail() throws NotAuthorizedException {
-        MailServer server = createServer();
+        ServerFacade server = createServer();
         Header header = new Header(user, user2);
         MailItem item = new MailItem(header, new MailMessage(new Content("Hello")));
         server.post(user,item);
@@ -105,32 +106,32 @@ public class MailServerTest {
 
     @Test(expected = NotAuthorizedException.class)
     public void testInvalidClient() throws NotAuthorizedException {
-        MailServer server = createServer();
+        ServerFacade server = createServer();
         new MailClientSender(server, invalidUser);
     }
 
     @Test
     public void testValidClient() throws NotAuthorizedException {
-        MailServer server = createServer();
+        ServerFacade server = createServer();
         new MailClientSender(server, user);
     }
 
     @Test
     public void testSendToValidClient() throws NotAuthorizedException {
-        MailServer server = createServer();
+        ServerFacade server = createServer();
         MailClientSender client = new MailClientSender(server, user);
         client.sendMailItem(user2, new MailMessage(new Content("hallo")));
     }
 
     @Test(expected=NotAuthorizedException.class)
     public void testSendToInvalidClient() throws NotAuthorizedException {
-        MailServer server = createServer();
+        ServerFacade server = createServer();
         MailClientSender client = new MailClientSender(server, user);
         client.sendMailItem(invalidUser, new MailMessage(new Content("hallo")));
     }
 
-    private MailServer createServer() {
-        MailServer server = new MailServer();
+    private ServerFacade createServer() {
+        ServerFacade server = new ServerFacade();
         server.addAccount(user);
         server.addAccount(user2);
         return server;

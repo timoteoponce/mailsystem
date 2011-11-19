@@ -6,9 +6,9 @@ package mailsystem.client;
 
 import mailsystem.FolderName;
 import mailsystem.message.MailItem;
-import mailsystem.server.MailServer;
 import mailsystem.server.NotAuthorizedException;
 import mailsystem.User;
+import mailsystem.server.Fetcher;
 
 /**
  *
@@ -16,46 +16,51 @@ import mailsystem.User;
  */
 public class MailClientReceiver extends MailClient {
 
-    public MailClientReceiver(MailServer server, User user) throws NotAuthorizedException {
+    private Fetcher server;
+    private User user;
+
+    public MailClientReceiver(Fetcher server, User user) throws NotAuthorizedException {
         super(server, user);
+        this.server = server;
+        this.user = user;
     }
 
     /**
      * Return the next mail item (if any) for this user.
      */
     public MailItem getNextMailItem() throws NotAuthorizedException {
-        return getServer().getNextMailItem(getUser());
+        return server.getNextMailItem(user);
     }
 
     public void deleteMailItem(final MailItem mailItem) throws NotAuthorizedException {
-        getServer().deleteMailItem(getUser(), mailItem);
+        server.deleteMailItem(user, mailItem);
     }
 
     public boolean hasMailInInbox(final MailItem mailItem) throws NotAuthorizedException {
-        return getServer().hasMailInInbox(getUser(), mailItem);
+        return server.hasMailInInbox(user, mailItem);
     }
 
     public boolean hasMailTrash(final MailItem mailItem) throws NotAuthorizedException {
-        return getServer().hasMailInTrash(getUser(), mailItem);
+        return server.hasMailInTrash(user, mailItem);
     }
 
     public void createFolder(final FolderName folderName) throws NotAuthorizedException {
-        getServer().createFolder(folderName);
+        server.createFolder(folderName);
     }
 
     public boolean hasFolder(final FolderName folderName) throws NotAuthorizedException {
-        return getServer().hasFolder(folderName);
+        return server.hasFolder(folderName);
     }
 
     public void deleteFolder(final FolderName folderName) throws NotAuthorizedException {
-        getServer().deleteFolder(folderName);
+        server.deleteFolder(folderName);
     }
 
     public void moveMailItem(final FolderName folderName, final MailItem mailItem) throws NotAuthorizedException {
-        getServer().moveMailItem(folderName, mailItem);
+        server.moveMailItem(folderName, mailItem);
     }
 
     public boolean hasMailInFolder(final FolderName folderName, final MailItem mailItem) throws NotAuthorizedException {
-        return getServer().hasMailInFolder(folderName, mailItem);
+        return server.hasMailInFolder(folderName, mailItem);
     }
 }

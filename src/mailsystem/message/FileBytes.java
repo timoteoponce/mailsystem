@@ -23,9 +23,6 @@ public class FileBytes {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
         final FileBytes other = (FileBytes) obj;
         byte[] otherAttach = other.attach;
         return Arrays.equals(attach, otherAttach);

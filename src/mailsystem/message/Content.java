@@ -20,9 +20,6 @@ public class Content {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
         final Content other = (Content) obj;
         return contenido.equals(other.contenido);
     }

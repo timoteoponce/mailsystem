@@ -50,9 +50,6 @@ public class MailItem {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
         final MailItem other = (MailItem) obj;
         return compareHeader(other.header) && compareMessage(other.message);
     }

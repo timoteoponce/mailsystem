@@ -47,9 +47,6 @@ public class Folder {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
         final Folder other = (Folder) obj;
         return this.name.equals(other.name) && this.itemList.equals(other.itemList);
     }

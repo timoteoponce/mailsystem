@@ -21,20 +21,10 @@ public class MailItemsNumber {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
         final MailItemsNumber other = (MailItemsNumber) obj;
         if (number != other.number) {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 79 * hash + number;
-        return hash;
     }
 }

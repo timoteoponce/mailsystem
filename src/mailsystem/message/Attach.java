@@ -26,9 +26,6 @@ class Attach {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
         final Attach other = (Attach) obj;
         return fileBytes.equals(other.fileBytes) && filename.equals(other.filename);
     }

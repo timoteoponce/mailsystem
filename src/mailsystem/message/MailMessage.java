@@ -29,9 +29,6 @@ public class MailMessage {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
         final MailMessage other = (MailMessage) obj;
         Content otherContent = other.content;        
         Attach otherAttach = other.attach;

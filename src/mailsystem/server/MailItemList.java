@@ -50,9 +50,6 @@ public class MailItemList {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
         final MailItemList other = (MailItemList) obj;
         return this.items.equals(other.items);
     }
