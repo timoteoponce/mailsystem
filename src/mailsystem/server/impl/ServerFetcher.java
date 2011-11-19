@@ -1,8 +1,13 @@
-package mailsystem.server;
+package mailsystem.server.impl;
 
+import mailsystem.server.account.AccountList;
+import mailsystem.server.account.UserFolders;
 import mailsystem.FolderName;
 import mailsystem.User;
 import mailsystem.message.MailItem;
+import mailsystem.server.Fetcher;
+import mailsystem.server.account.MailItemsNumber;
+import mailsystem.server.account.UserFoldersDecorator;
 
 /**
  * A simple model of a mail server. The server is able to receive
@@ -12,8 +17,11 @@ import mailsystem.message.MailItem;
  */
 public class ServerFetcher extends BaseServer implements Fetcher {
 
-    public ServerFetcher(UserFolders userFolders, AccountList accountList) {
+    private UserFoldersDecorator userFolders;
+
+    public ServerFetcher(UserFoldersDecorator userFolders, AccountList accountList) {
         super(userFolders, accountList);
+        this.userFolders = userFolders;
     }
 
     /**
@@ -23,7 +31,7 @@ public class ServerFetcher extends BaseServer implements Fetcher {
      */
     @Override
     public MailItemsNumber howManyMailItemsInQueue(User user) {
-        return getUserFolders().countQueuedItemsBelongingTo(user);
+        return userFolders.countQueuedItemsBelongingTo(user);
     }
 
     /**
@@ -34,46 +42,46 @@ public class ServerFetcher extends BaseServer implements Fetcher {
      */
     @Override
     public MailItem getNextMailItem(User user) {
-        return getUserFolders().getQueuedItem(user);
+        return userFolders.getQueuedItem(user);
     }
 
     @Override
     public void deleteMailItem(User user, MailItem mailItem) {
-        getUserFolders().delete(user, mailItem);
+        userFolders.delete(user, mailItem);
     }
 
     @Override
     public boolean hasMailInInbox(User user, MailItem mailItem) {
-        return getUserFolders().hasMailItemInInbox(user, mailItem);
+        return userFolders.hasMailItemInInbox(user, mailItem);
     }
 
     @Override
     public boolean hasMailInTrash(User user, MailItem mailItem) {
-        return getUserFolders().hasMailItemInTrash(user, mailItem);
+        return userFolders.hasMailItemInTrash(user, mailItem);
     }
 
     @Override
     public void createFolder(FolderName folderName) {
-        getUserFolders().addFolder(folderName);
+        userFolders.addFolder(folderName);
     }
 
     @Override
     public boolean hasFolder(FolderName folderName) {
-        return getUserFolders().hasFolder(folderName);
+        return userFolders.hasFolder(folderName);
     }
 
     @Override
     public void deleteFolder(FolderName folderName) {
-        getUserFolders().deleteFolder(folderName);
+        userFolders.deleteFolder(folderName);
     }
 
     @Override
     public void moveMailItem(FolderName folderName, MailItem mailItem) {
-        getUserFolders().moveMailItem(folderName, mailItem);
+        userFolders.moveMailItem(folderName, mailItem);
     }
 
     @Override
     public boolean hasMailInFolder(FolderName folderName, MailItem mailItem) {
-        return getUserFolders().hasMailInFolder(folderName, mailItem);
+        return userFolders.hasMailInFolder(folderName, mailItem);
     }
 }

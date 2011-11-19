@@ -4,15 +4,15 @@
  */
 package mailsystem;
 
-import mailsystem.server.MailItemsNumber;
-import mailsystem.server.ServerFetcher;
+import mailsystem.server.account.MailItemsNumber;
+import mailsystem.server.impl.ServerFetcher;
 import mailsystem.server.NotAuthorizedException;
 import mailsystem.message.Header;
 import mailsystem.message.MailItem;
 import mailsystem.message.Content;
 import mailsystem.message.MailMessage;
 import mailsystem.client.MailClientSender;
-import mailsystem.server.ServerFacade;
+import mailsystem.server.impl.ServerFacade;
 import org.junit.Assert;
 import org.junit.Test;
 

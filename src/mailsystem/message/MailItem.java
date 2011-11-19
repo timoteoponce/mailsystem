@@ -1,6 +1,5 @@
 package mailsystem.message;
 
-import java.io.PrintStream;
 import mailsystem.User;
 
 /**
@@ -16,13 +15,6 @@ public class MailItem {
     // The text of the message.
     private MailMessage message;
 
-    /**
-     * Create a mail item from sender to the given recipient,
-     * containing the given message.
-     * @param from The sender of this item.
-     * @param to The intended recipient of this item.
-     * @param message The text of the message to be sent.
-     */
     public MailItem(Header header, MailMessage message) {
         this.header = header;
         this.message = message;
@@ -30,19 +22,6 @@ public class MailItem {
 
     public boolean isTo(User user) {
         return header.isTo(user);
-    }
-
-    /**
-     * Print this mail message to the text terminal.
-     */
-    public void print() {
-        println(header.toString());
-        println(message.toString());
-    }
-
-    private void println(String message) {
-        PrintStream stream = System.out;
-        stream.print(message);
     }
 
     @Override

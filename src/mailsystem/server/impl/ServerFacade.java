@@ -2,28 +2,34 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package mailsystem.server;
+package mailsystem.server.impl;
 
+import mailsystem.server.account.AccountList;
+import mailsystem.server.account.UserFolders;
 import mailsystem.FolderName;
 import mailsystem.User;
 import mailsystem.message.MailItem;
+import mailsystem.server.Dispatcher;
+import mailsystem.server.Fetcher;
+import mailsystem.server.account.MailItemsNumber;
+import mailsystem.server.NotAuthorizedException;
+import mailsystem.server.account.UserFoldersDecorator;
 
 /**
  *
  * @author timoteo
  */
-public class ServerFacade implements Fetcher,Dispatcher{
-    
+public class ServerFacade implements Fetcher, Dispatcher {
+
     private ServerFetcher fetcher;
     private ServerDispatcher dispatcher;
 
     public ServerFacade() {
-        UserFolders userFolders = new UserFolders();
+        UserFoldersDecorator userFolders = new UserFoldersDecorator();
         AccountList accountList = new AccountList();
         fetcher = new ServerFetcher(userFolders, accountList);
         dispatcher = new ServerDispatcher(userFolders, accountList);
     }
-    
 
     public void createFolder(FolderName folderName) {
         fetcher.createFolder(folderName);
@@ -76,5 +82,4 @@ public class ServerFacade implements Fetcher,Dispatcher{
     public void authenticate(User user) throws NotAuthorizedException {
         dispatcher.authenticate(user);
     }
-    
 }

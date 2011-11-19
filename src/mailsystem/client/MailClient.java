@@ -33,7 +33,7 @@ public abstract class MailClient {
         server.authenticate(user);
     }
 
-    public boolean isUser(User otherUser) {
+    public boolean isClientUser(User otherUser) {
         return user.equals(otherUser);
     }
 

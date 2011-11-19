@@ -30,14 +30,9 @@ public class MailMessage {
             return false;
         }
         final MailMessage other = (MailMessage) obj;
-        Content otherContent = other.content;        
+        Content otherContent = other.content;
         Attach otherAttach = other.attach;
         return content.equals(otherContent) && compareAttach(otherAttach);
-    }
-
-    @Override
-    public String toString() {
-        return "Message: " + content;
     }
 
     private boolean compareAttach(Attach otherAttach) {

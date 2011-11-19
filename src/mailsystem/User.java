@@ -18,12 +18,6 @@ public class User {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
         final User other = (User) obj;
         String otherName = other.name;
         if (name == null) {

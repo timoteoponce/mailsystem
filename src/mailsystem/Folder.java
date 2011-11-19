@@ -4,8 +4,8 @@
  */
 package mailsystem;
 
-import mailsystem.server.MailItemsNumber;
-import mailsystem.server.MailItemList;
+import mailsystem.server.account.MailItemsNumber;
+import mailsystem.server.account.MailItemList;
 import mailsystem.message.MailItem;
 
 /**

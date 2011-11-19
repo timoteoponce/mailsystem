@@ -9,9 +9,10 @@ package mailsystem.message;
  * @author Carla
  */
 public class Content {
+
     private String contenido;
-    
-    public Content(String contenido){
+
+    public Content(String contenido) {
         this.contenido = contenido;
     }
 
@@ -23,7 +24,4 @@ public class Content {
         final Content other = (Content) obj;
         return contenido.equals(other.contenido);
     }
-      
-
-    
 }

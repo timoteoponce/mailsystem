@@ -17,7 +17,7 @@ import java.io.OutputStream;
  */
 public class FileHandler {
 
-    public FileBytes loadFile(FileName filename) throws IOException {
+    public static FileBytes loadFile(FileName filename) throws IOException {
         FileInputStream fileInput = new FileInputStream(filename.toString());
         ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
         try {
@@ -29,7 +29,7 @@ public class FileHandler {
         return new FileBytes(byteStream.toByteArray());
     }
 
-    private void readBytes(FileInputStream fileInput, OutputStream byteStream, byte[] buffer) throws IOException {
+    private static void readBytes(FileInputStream fileInput, OutputStream byteStream, byte[] buffer) throws IOException {
         while (fileInput.read(buffer) > 0) {
             byteStream.write(buffer);
         }

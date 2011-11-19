@@ -2,12 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package mailsystem.server;
+package mailsystem.server.account;
 
+import java.util.HashSet;
 import mailsystem.message.MailItem;
 import mailsystem.client.MailClient;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 import mailsystem.User;
 
 /**
@@ -16,18 +16,18 @@ import mailsystem.User;
  */
 public class AccountList {
 
-    private List<User> validAccounts = new ArrayList<User>();
+    private Set<User> validAccounts = new HashSet<User>();
 
-    boolean hasAccount(MailClient client) {
+    public boolean hasAccount(MailClient client) {
         for (User user : validAccounts) {
-            if (client.isUser(user)) {
+            if (client.isClientUser(user)) {
                 return true;
             }
         }
         return false;
     }
-    
-    boolean hasAccount(MailItem item) {
+
+    public boolean hasAccount(MailItem item) {
         for (User user : validAccounts) {
             if (item.isToUser(user)) {
                 return true;
@@ -36,11 +36,11 @@ public class AccountList {
         return false;
     }
 
-    void add(User user) {
+    public void add(User user) {
         validAccounts.add(user);
     }
 
-    boolean hasAccount(User otherUser) {
+    public boolean hasAccount(User otherUser) {
         for (User user : validAccounts) {
             if (otherUser.equals(user)) {
                 return true;

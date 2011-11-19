@@ -4,6 +4,7 @@
  */
 package mailsystem.server;
 
+import mailsystem.server.account.MailItemsNumber;
 import mailsystem.FolderName;
 import mailsystem.User;
 import mailsystem.message.MailItem;

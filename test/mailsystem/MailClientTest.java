@@ -8,7 +8,7 @@
  */
 package mailsystem;
 
-import mailsystem.server.ServerFetcher;
+import mailsystem.server.impl.ServerFetcher;
 import mailsystem.server.NotAuthorizedException;
 import mailsystem.message.Header;
 import mailsystem.message.MailItem;
@@ -19,7 +19,7 @@ import java.io.IOException;
 import junit.framework.Assert;
 import mailsystem.client.MailClientReceiver;
 import mailsystem.client.MailClientSender;
-import mailsystem.server.ServerFacade;
+import mailsystem.server.impl.ServerFacade;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

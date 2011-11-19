@@ -5,7 +5,7 @@
 
 package mailsystem;
 
-import mailsystem.server.UserFolders;
+import mailsystem.server.account.UserFolders;
 
 /**
  *

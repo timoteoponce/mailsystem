@@ -2,10 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package mailsystem.server;
+package mailsystem.server.impl;
 
+import mailsystem.server.account.AccountList;
+import mailsystem.server.account.UserFolders;
 import mailsystem.User;
 import mailsystem.message.MailItem;
+import mailsystem.server.Dispatcher;
+import mailsystem.server.NotAuthorizedException;
+import mailsystem.server.account.UserFoldersDecorator;
 
 /**
  *
@@ -13,8 +18,11 @@ import mailsystem.message.MailItem;
  */
 public class ServerDispatcher extends BaseServer implements Dispatcher {
 
-    public ServerDispatcher(UserFolders userFolders, AccountList accountList) {
+    private UserFoldersDecorator userFolders; 
+    
+    public ServerDispatcher(UserFoldersDecorator userFolders, AccountList accountList) {
         super(userFolders, accountList);
+        this.userFolders = userFolders;
     }
 
     /**
@@ -24,6 +32,6 @@ public class ServerDispatcher extends BaseServer implements Dispatcher {
     @Override
     public void post(User user, MailItem item) throws NotAuthorizedException {
         authenticate(item);
-        getUserFolders().addQueueItem(user, item);
+        userFolders.addQueueItem(user, item);
     }
 }

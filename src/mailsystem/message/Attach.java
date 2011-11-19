@@ -18,7 +18,7 @@ class Attach {
 
     Attach(FileName attachFile) throws IOException {
         this.filename = attachFile;
-        fileBytes = new FileHandler().loadFile(filename);
+        fileBytes = FileHandler.loadFile(filename);
     }
 
     @Override
